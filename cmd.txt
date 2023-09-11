@@ -1,0 +1,4 @@
+// inner redis
+docker exec -it redis bash
+redis-cli
+get [key]
