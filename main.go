@@ -25,13 +25,23 @@ func main() {
 	redisClient := initRedis()
 	_ = redisClient
 
+	// // Normal
 	productRepo := repositories.NewProductRepositoryDB(db)
+
+	// // Redis
 	// productRepo := repositories.NewProductRepositoryRedis(db, redisClient)
-	// productRepo := repositories.NewProductRepositoryDB(db)
-	productService := services.NewCatalogService(productRepo)
-	// productService := services.NewCatalogServiceRedis(productRepo, redisClient)
-	// productHandler := handlers.NewCatalogHandler(productService)
-	productHandler := handlers.NewCatalogHandlerRedis(productService, redisClient)
+
+	// // Normal
+	// productService := services.NewCatalogService(productRepo)
+
+	// // Redis
+	productService := services.NewCatalogServiceRedis(productRepo, redisClient)
+
+	// // Normal
+	productHandler := handlers.NewCatalogHandler(productService)
+
+	// // Redis
+	// productHandler := handlers.NewCatalogHandlerRedis(productService, redisClient)
 
 	// products, err := productService.GetProducts()
 	// if err != nil {
